@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="pruebaModelStoreContainer" CdmEntityContainer="pruebaEntities">
+    <EntitySetMapping Name="usuario">
+      <EntityTypeMapping TypeName="pruebaModel.usuario">
+        <MappingFragment StoreEntitySet="usuario">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="usuario_red" ColumnName="usuario_red" />
+          <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_Crear_Usuario" FunctionName="pruebaModel.Store.SP_Crear_Usuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="pruebaModel.CrearUsuario_Result">
+          <ScalarProperty Name="res" ColumnName="res" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Consultar_Usuario" FunctionName="pruebaModel.Store.SP_Consultar_Usuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="pruebaModel.ConsultarUsuario_Result">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="usuario_red" ColumnName="usuario_red" />
+          <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Desactivar_Usuario" FunctionName="pruebaModel.Store.SP_Desactivar_Usuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="pruebaModel.DesactivarUsuario_Result">
+          <ScalarProperty Name="res" ColumnName="res" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Modificar_Usuario" FunctionName="pruebaModel.Store.SP_Modificar_Usuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="pruebaModel.ModificarUsuario_Result">
+          <ScalarProperty Name="res" ColumnName="res" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

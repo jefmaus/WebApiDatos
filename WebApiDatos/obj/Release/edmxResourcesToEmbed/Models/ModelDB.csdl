@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pruebaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="usuario_red" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_registro" Type="DateTime" Precision="3" />
+    <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="pruebaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <FunctionImport Name="SP_Crear_Usuario" ReturnType="Collection(pruebaModel.CrearUsuario_Result)">
+      <Parameter Name="usuario_red" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Consultar_Usuario" ReturnType="Collection(pruebaModel.ConsultarUsuario_Result)">
+      <Parameter Name="criterio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Desactivar_Usuario" ReturnType="Collection(pruebaModel.DesactivarUsuario_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Modificar_Usuario" ReturnType="Collection(pruebaModel.ModificarUsuario_Result)">
+      <Parameter Name="id_usuario" Mode="In" Type="Int32" />
+      <Parameter Name="usuario_red" Mode="In" Type="String" />
+      <Parameter Name="estado" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="CrearUsuario_Result">
+    <Property Type="String" Name="res" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="ConsultarUsuario_Result">
+    <Property Type="Int32" Name="id_usuario" Nullable="false" />
+    <Property Type="String" Name="usuario_red" Nullable="false" MaxLength="30" />
+    <Property Type="DateTime" Name="fecha_registro" Nullable="true" Precision="23" />
+    <Property Type="String" Name="estado" Nullable="true" MaxLength="1" />
+  </ComplexType>
+  <ComplexType Name="DesactivarUsuario_Result">
+    <Property Type="String" Name="res" Nullable="true" MaxLength="1" />
+  </ComplexType>
+  <ComplexType Name="ModificarUsuario_Result">
+    <Property Type="String" Name="res" Nullable="true" MaxLength="1" />
+  </ComplexType>
+</Schema>

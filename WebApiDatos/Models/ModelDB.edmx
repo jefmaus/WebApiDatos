@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="pruebaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_red" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fecha_registro" Type="datetime" />
+          <Property Name="estado" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <Function Name="SP_Consultar_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="criterio" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Crear_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="usuario_red" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Desactivar_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Modificar_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_usuario" Type="int" Mode="In" />
+          <Parameter Name="usuario_red" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="pruebaModelStoreContainer">
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pruebaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_red" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="pruebaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <FunctionImport Name="SP_Crear_Usuario" ReturnType="Collection(pruebaModel.CrearUsuario_Result)">
+          <Parameter Name="usuario_red" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Consultar_Usuario" ReturnType="Collection(pruebaModel.ConsultarUsuario_Result)">
+          <Parameter Name="criterio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Desactivar_Usuario" ReturnType="Collection(pruebaModel.DesactivarUsuario_Result)">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Modificar_Usuario" ReturnType="Collection(pruebaModel.ModificarUsuario_Result)">
+            <Parameter Name="id_usuario" Mode="In" Type="Int32" />
+            <Parameter Name="usuario_red" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="CrearUsuario_Result">
+          <Property Type="String" Name="res" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="ConsultarUsuario_Result">
+          <Property Type="Int32" Name="id_usuario" Nullable="false" />
+          <Property Type="String" Name="usuario_red" Nullable="false" MaxLength="30" />
+          <Property Type="DateTime" Name="fecha_registro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="estado" Nullable="true" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="DesactivarUsuario_Result">
+          <Property Type="String" Name="res" Nullable="true" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="ModificarUsuario_Result">
+          <Property Type="String" Name="res" Nullable="true" MaxLength="1" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pruebaModelStoreContainer" CdmEntityContainer="pruebaEntities">
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="pruebaModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="usuario_red" ColumnName="usuario_red" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_Crear_Usuario" FunctionName="pruebaModel.Store.SP_Crear_Usuario" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="pruebaModel.CrearUsuario_Result">
+                <ScalarProperty Name="res" ColumnName="res" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Consultar_Usuario" FunctionName="pruebaModel.Store.SP_Consultar_Usuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="pruebaModel.ConsultarUsuario_Result">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="usuario_red" ColumnName="usuario_red" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Desactivar_Usuario" FunctionName="pruebaModel.Store.SP_Desactivar_Usuario" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="pruebaModel.DesactivarUsuario_Result">
+                <ScalarProperty Name="res" ColumnName="res" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Modificar_Usuario" FunctionName="pruebaModel.Store.SP_Modificar_Usuario" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="pruebaModel.ModificarUsuario_Result">
+                <ScalarProperty Name="res" ColumnName="res" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
